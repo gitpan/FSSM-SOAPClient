@@ -3,7 +3,9 @@ package FSSM::SOAPClient;
 use strict;
 use warnings;
 
-=head1 FSSM::SOAPClient - Access the Fortinbras FSSM web service
+=head1 NAME
+
+FSSM::SOAPClient - Access the Fortinbras FSSM web service
 
 =head1 SYNOPSIS
 
@@ -167,7 +169,7 @@ for the run:
 
 =back
 
-=head2 UNDER THE HOOD
+=head1 UNDER THE HOOD
 
 The L<SOAP::Lite> client object can be retrieved with
 
@@ -184,8 +186,6 @@ Request data in L<SOAP::Data> format can be retrieved with
 and cleared with
 
  $client->clear_request;
-
-
 
 =head1 AUTHOR - Mark A. Jensen
 
@@ -212,7 +212,7 @@ L<SOAP::Lite>, L<http://fortinbras.us/fssm>
 BEGIN {
     use Exporter ();
     use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
-    $VERSION     = '0.01';
+    $VERSION     = '0.011';
     @ISA         = qw(Exporter);
 
     @EXPORT      = qw();
@@ -239,7 +239,7 @@ sub new
     return $self;
 }
 
-=head2 run()
+=head3 run()
 
  Title   : run
  Usage   : $client->run;
@@ -269,7 +269,7 @@ sub run {
     return FSSM::SOAPClient::Result->new($self->som);
 }
 
-=head2 attach_seqs()
+=head3 attach_seqs()
 
  Title   : attach_seqs
  Usage   : 
@@ -347,7 +347,7 @@ sub attach_seqs {
 
 =head2 Parameters
 
-=head2 seqtype()
+=head3 seqtype()
 
  Title   : seqtype
  Usage   : 
@@ -377,7 +377,7 @@ sub seqtype {
     return $self->{_seqtype} = 'nt' if ($seqtype =~ /^.na$/i);
 }
 
-=head2 predictor()
+=head3 predictor()
 
  Title   : predictor
  Usage   : $client->predictor('subtype B SI/NSI');
@@ -386,7 +386,7 @@ sub seqtype {
  Args    : run $client->available_parameters('predictor') 
            for a list of accepted predictors
 
-=head2 expansion()
+=head3 expansion()
 
  Title   : expansion
  Usage   : $client->expansion('avg');
@@ -398,7 +398,7 @@ sub seqtype {
            full : return individual scores for all non-ambig seqs 
                   (can fail if too many)
 
-=head2 search()
+=head3 search()
 
  Title   : search
  Usage   : $client->search('align');
@@ -413,7 +413,7 @@ sub seqtype {
 
 =head2 Parameter manipulation
 
-=head2 set_parameters()
+=head3 set_parameters()
 
  Title   : set_parameters
  Usage   : 
@@ -439,7 +439,7 @@ sub set_parameters {
     return $self->parameters_changed(1);
 }
 
-=head2 get_parameters()
+=head3 get_parameters()
 
  Title   : get_parameters
  Usage   : 
@@ -459,7 +459,7 @@ sub get_parameters {
     return @ret;
 }
 
-=head2 reset_parameters()
+=head3 reset_parameters()
 
  Title   : reset_parameters
  Usage   : 
@@ -481,7 +481,7 @@ sub reset_parameters {
     $self->set_parameters(%args);
 }
 
-=head2 available_parameters()
+=head3 available_parameters()
 
  Title   : available_parameters
  Usage   : @parms = $client->available_parameters;
@@ -502,7 +502,7 @@ sub available_parameters {
     return @{$PARAM_VALUES{$parm}};
 }
 
-=head2 parameters_changed()
+=head3 parameters_changed()
 
  Title   : parameters_changed
  Usage   : 
@@ -521,7 +521,7 @@ sub parameters_changed {
 
 =head2 Accessors/Attributes
 
-=head2 soap_client()
+=head3 soap_client()
 
  Title   : soap_client
  Usage   : $soap = $client->soap_client
@@ -533,7 +533,7 @@ sub parameters_changed {
 
 sub soap_client { shift->{_soap} }
 
-=head2 som()
+=head3 som()
 
  Title   : som
  Alias   : message
@@ -548,7 +548,7 @@ sub soap_client { shift->{_soap} }
 sub som { shift->{_som} }
 sub message { shift->{_som} }
 
-=head2 request_data()
+=head3 request_data()
 
  Title   : request_data
  Usage   : $data =$self->request_data
@@ -601,7 +601,7 @@ sub request_data {
 	);
 }
 
-=head2 clear_request()
+=head3 clear_request()
 
  Title   : clear_request
  Usage   : $client->clear_request
@@ -614,7 +614,7 @@ sub request_data {
 sub clear_request { delete shift->{_request_data}; return 1 }
 
 
-=head2 ok(), errcode(), errstr()()
+=head3 ok(), errcode(), errstr()()
 
  Title   : ok(), errcode(), errstr()
  Usage   : if (!$client->ok()) { warn $client->errstr }
@@ -710,7 +710,9 @@ package FSSM::SOAPClient::Result;
 use strict;
 use warnings;
 
-=head1 FSSM::SOAPClient::Result - access the returned FSSM analysis
+=head1 NAME
+
+FSSM::SOAPClient::Result - access the returned FSSM analysis
 
 C<FSSM::SOAPClient::Result> objects are returned by C<FSSM::SOAPClient::run()>. Use the following methods to retrieve the analysis.
 
@@ -729,7 +731,7 @@ sub new {
     }, $class;
 }
 
-=head2 next_call()
+=head3 next_call()
 
  Title   : next_call
  Usage   : $item = $result->next_call
@@ -759,7 +761,7 @@ sub next_call {
     
 }
 
-=head2 rewind()
+=head3 rewind()
 
  Title   : rewind
  Usage   : $result->rewind
@@ -771,7 +773,7 @@ sub next_call {
 
 sub rewind { shift->{_idx} = 0; 1 };
 
-=head2 each_call()
+=head3 each_call()
 
  Title   : each_call
  Usage   : @calls = $result->each_call;
@@ -787,7 +789,7 @@ sub each_call {
     return @ret;
 }
 
-=head2 metadata()
+=head3 metadata()
 
  Title   : metadata
  Alias   : meta
