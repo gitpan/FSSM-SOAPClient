@@ -28,7 +28,9 @@ SKIP : {
 	diag("Server timed out. Run later.");
 	ok 1;
     }
-    else {
+    !$result && diag("No result from server; skipping some tests");
+    SKIP : {
+	skip "No result from server, skipping...", 7 unless $result;
 	ok $result, "result retrived";
 	my @ids = (81707, 177995, 177998 );
 	my @plabels = qw(NSI NSI NSI);

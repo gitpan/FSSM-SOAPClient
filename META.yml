@@ -1,6 +1,6 @@
 ---
 name: FSSM-SOAPClient
-version: 0.011
+version: 0.012
 author:
   - Mark A. Jensen
 abstract: Access the Fortinbras FSSM web service
@@ -19,7 +19,7 @@ configure_requires:
 provides:
   FSSM::SOAPClient:
     file: lib/FSSM/SOAPClient.pm
-    version: 0.011
+    version: 0.012
   FSSM::SOAPClient::Config:
     file: lib/FSSM/SOAPClient/Config.pm
     version: 0.01

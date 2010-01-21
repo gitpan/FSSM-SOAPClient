@@ -212,7 +212,7 @@ L<SOAP::Lite>, L<http://fortinbras.us/fssm>
 BEGIN {
     use Exporter ();
     use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
-    $VERSION     = '0.011';
+    $VERSION     = '0.012';
     @ISA         = qw(Exporter);
 
     @EXPORT      = qw();

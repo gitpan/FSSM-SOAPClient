@@ -17,5 +17,5 @@ my $build = Module::Build->new
       },
       create_makefile_pl => 'passthrough'
     );
-$build->notes( network => $build->prompt("Should I run network tests?"));
+$build->notes( network => $build->y_n("Should I run network tests?", 'y'));
 $build->create_build_script;
